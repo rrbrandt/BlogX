@@ -128,6 +128,10 @@ public class BlogEntryFileSystem implements BlogEntryPersistance {
     return applicationProperties.getBlogEntryRoot() + "BlogEntry." + dateString + ".ser";
   }
 
+  public String formatFileName(String userId, Date date) {
+    return applicationProperties.getBlogEntryRoot() + "userId//" + "BlogEntry." + formatDate(date) + ".ser";
+  }
+
   public static final String formatDate(Date blogEntryDateTime) {
     SimpleDateFormat sm = new SimpleDateFormat("yyyyMMddhhmmssSSS");
     return (sm.format(blogEntryDateTime));
