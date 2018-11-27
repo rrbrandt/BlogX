@@ -129,7 +129,7 @@ public class BlogEntryFileSystem implements BlogEntryPersistance {
   }
 
   public String formatFileName(String userId, Date date) {
-    return applicationProperties.getBlogEntryRoot() + "userId//" + "BlogEntry." + formatDate(date) + ".ser";
+    return applicationProperties.getBlogEntryRoot() + userId + "/BlogEntry." + formatDate(date) + ".ser";
   }
 
   public static final String formatDate(Date blogEntryDateTime) {
