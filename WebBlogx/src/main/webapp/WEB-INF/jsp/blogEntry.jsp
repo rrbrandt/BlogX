@@ -16,10 +16,11 @@
 
       header, footer {
         padding: 1em;
-        color: white;
-        background-color: black;
+        color: black;
+        background-color: white;
         clear: left;
         text-align: center;
+        border-bottom: 1px solid gray;
       }
 
       nav {
@@ -43,44 +44,49 @@
         padding: 1em;
         overflow: hidden;
       }
-    </style>  </head>
+    </style>
+  </head>
   <body>
 
-    <nav>
-      <h2>Blog History</h2>
-      ${listOfBlogEntries}
-    </nav>
-
-
     <article>
-      <h2>Blog Entry</h2>
-      <a href="${pageContext.servletContext.contextPath}">logout</a>
-      <form:form  method="post" action="/WebBlogx/crudBlogEntry">
+      <header><h1>WebBlogx</h1> ver. 1.0</header>
+      
+      <nav>
+        <h2>Blog History</h2>
+        ${listOfBlogEntries}
+      </nav>
 
-        <table style="width:100%">
-          <tr>
-            <td style="width:10%" align="right" ><form:label path="blogEntryDateTime" >DateTime</form:label></td>
-            <td style="width:90%"><form:input id = "datepicker"
-                        name="date"
-                        itemLabel="date"
-                        path="blogEntryDateTime" /> yyyy/MM/dd HH:mm:ss</td>
-          </tr>
-          <tr>
-            <td align="right"><form:label path="blogSubject">Subject</form:label></td>
-            <td><form:input size="80" path="blogSubject"/></td>
-          </tr>
-          <tr>
-            <td align="right" ><form:label path="blogEntry">Entry</form:label></td>
-            <td><form:textarea path="blogEntry"  rows="20" cols="82" /></td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <input type="submit" value="save" name="save"/>
-              <input type="submit" value="delete" name="delete"/>
-            </td>
-          </tr>
-        </table>  
-      </form:form>
+
+      <article>
+        <h2>Blog Entry</h2>
+        <a href="${pageContext.servletContext.contextPath}">logout</a>
+        <form:form  method="post" action="/WebBlogx/crudBlogEntry">
+
+          <table style="width:100%">
+            <tr>
+              <td style="width:10%" align="right" ><form:label path="blogEntryDateTime" >DateTime</form:label></td>
+              <td style="width:90%"><form:input id = "datepicker"
+                          name="date"
+                          itemLabel="date"
+                          path="blogEntryDateTime" /> yyyy/MM/dd HH:mm:ss</td>
+            </tr>
+            <tr>
+              <td align="right"><form:label path="blogSubject">Subject</form:label></td>
+              <td><form:input size="80" path="blogSubject"/></td>
+            </tr>
+            <tr>
+              <td align="right" ><form:label path="blogEntry">Entry</form:label></td>
+              <td><form:textarea path="blogEntry"  rows="20" cols="82" /></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <input type="submit" value="save" name="save"/>
+                <input type="submit" value="delete" name="delete"/>
+              </td>
+            </tr>
+          </table>  
+        </form:form>
+      </article>
     </article>
   </body>
 </html>

@@ -82,10 +82,21 @@ public class BlogEntryFileSystemTest {
     System.out.println("****************************************");
     Date blogEntryDateTime = new Date(0);
     BlogEntryFileSystem blogEntryFileSystem = new BlogEntryFileSystem();
-    assertEquals("19691231070000000", blogEntryFileSystem.formatDate(blogEntryDateTime));
+    assertEquals("19691231070000000", BlogEntryFileSystem.formatDate(blogEntryDateTime));
     blogEntryDateTime = new Date(-10000000000000l);
     blogEntryFileSystem = new BlogEntryFileSystem();
-    assertEquals("16530210011320000", blogEntryFileSystem.formatDate(blogEntryDateTime));
+    assertEquals("16530210011320000", BlogEntryFileSystem.formatDate(blogEntryDateTime));
   }
 
+  @Test
+  public void testFormatFileName() {
+    System.out.println("****************************************");
+    System.out.println("testFormatDate");
+    System.out.println("****************************************");
+    Date blogEntryDateTime = new Date(0);
+    BlogEntryFileSystem blogEntryFileSystem = new BlogEntryFileSystem();
+    blogEntryFileSystem.setApplicationProperties(applicationProperties);
+    assertEquals("c:/opt/javasmyths/blogEntries/test/userId/BlogEntry.19691231070000000.ser", blogEntryFileSystem.formatFileName("userId", blogEntryDateTime));
+    
+  }
 }

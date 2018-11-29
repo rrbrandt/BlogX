@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -35,9 +36,9 @@ public class SignInControler extends RootController {
   }
 
   @RequestMapping(value = "/login", method = RequestMethod.POST)
-  public String login(@ModelAttribute("SpringWeb") BlogEntry blogEntry, ModelMap model) {
+  public String login(@ModelAttribute("SpringWeb") BlogEntry blogEntry, @RequestParam("userId") String userId, ModelMap model) {
     log.debug("****************************************");
-    log.debug("SignInControler()");
+    log.debug("SignInControler() userId = " + userId);
     log.debug("****************************************");
     model.addAttribute("command", new BlogEntry(new Date()));
     model.addAttribute("listOfBlogEntries", generateBlogList());

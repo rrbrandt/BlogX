@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="DEBUG">
   <Appenders>
-    <File name="file" fileName="/logs/WebBlogx.log">
+    <File name="file" fileName="/chroot/home/javasmyt/logs/WebBlogx.log">
       <PatternLayout>
         <Pattern>%d %p %c [%t] %m %ex%n</Pattern>
       </PatternLayout>
