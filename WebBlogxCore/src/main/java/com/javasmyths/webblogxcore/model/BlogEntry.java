@@ -14,6 +14,7 @@ public class BlogEntry extends GsonModel implements Serializable {
   private Date blogEntryDateTime;
   private String blogSubject;
   private String blogEntry;
+  private User user;
 
   public BlogEntry() {
   }
@@ -54,9 +55,17 @@ public class BlogEntry extends GsonModel implements Serializable {
     this.blogEntryDateTime = blogEntryDateTime;
   }
 
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
   @Override
   public String toString() {
-    return "BlogEntry{" + "blogEntryDateTime=" + blogEntryDateTime + ", blogSubject=" + blogSubject + ", blogEntry=" + blogEntry + '}';
+    return "BlogEntry{" + "blogEntryDateTime=" + blogEntryDateTime + ", blogSubject=" + blogSubject + ", blogEntry=" + blogEntry + ", user=" + user + '}';
   }
 
 }
