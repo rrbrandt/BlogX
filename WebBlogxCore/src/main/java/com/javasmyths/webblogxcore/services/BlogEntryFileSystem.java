@@ -42,7 +42,8 @@ public class BlogEntryFileSystem implements BlogEntryPersistance {
 
   @Override
   public void save(BlogEntry blogEntry) throws IOException {
-    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(formatFileName(blogEntry.getBlogEntryDateTime())))) {
+//    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(formatFileName(blogEntry.getBlogEntryDateTime())))) {
+    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(formatFileName(blogEntry)))) {
       oos.writeObject(blogEntry);
     } catch (IOException ioex) {
       log.error("Error saving blog entry", ioex);
@@ -118,6 +119,10 @@ public class BlogEntryFileSystem implements BlogEntryPersistance {
       log.error("Could not update blog entry", ex);
     }
     return blogEntry;
+  }
+
+  public String formatFileName(BlogEntry blogEntry) {
+    return formatFileName(blogEntry.getUser().getUserId(), blogEntry.getBlogEntryDateTime());
   }
 
   public String formatFileName(Date date) {
