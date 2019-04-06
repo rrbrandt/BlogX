@@ -37,4 +37,9 @@ public class User extends GsonModel {
     this.userId = UserId;
   }
 
+  @Override
+  public String toString() {
+    return "User{" + "userId=" + userId + ", password=" + password + '}';
+  }
+
 }

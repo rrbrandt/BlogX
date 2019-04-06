@@ -11,6 +11,8 @@ import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,8 +44,16 @@ public class BlogEntryFileSystem implements BlogEntryPersistance {
 
   @Override
   public void save(BlogEntry blogEntry) throws IOException {
-//    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(formatFileName(blogEntry.getBlogEntryDateTime())))) {
-    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(formatFileName(blogEntry)))) {
+    String pathFile = formatFileName(blogEntry);
+    File path = new File(String.valueOf(Paths.get(pathFile)));
+
+    if (path.exists()) {
+      path.mkdirs();
+      path.setWritable(true);
+    }
+    File file = new File(pathFile);
+    log.info("Saving blog entry pathFile = " + pathFile);
+    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
       oos.writeObject(blogEntry);
     } catch (IOException ioex) {
       log.error("Error saving blog entry", ioex);
@@ -51,10 +61,10 @@ public class BlogEntryFileSystem implements BlogEntryPersistance {
   }
 
   @Override
-  public List<BlogEntry> get(Date startDate, Date endDate, boolean decending) {
+  public List<BlogEntry> get(String userId, Date startDate, Date endDate, boolean decending) {
     ArrayList<BlogEntry> blogEntries = new ArrayList<>();
     TreeMap<String, BlogEntry> treeMap = new TreeMap();
-    File f = new File(applicationProperties.getBlogEntryRoot());
+    File f = new File(applicationProperties.getBlogEntryRoot() + userId + "/");
     File[] list = f.listFiles();
 
     if (list != null) {
@@ -72,29 +82,29 @@ public class BlogEntryFileSystem implements BlogEntryPersistance {
   }
 
   @Override
-  public BlogEntry get(Date date) {
-    BlogEntry blogEntry = readSerializedObj(formatDate(date));
+  public BlogEntry get(String userId, Date date) {
+    BlogEntry blogEntry = readSerializedObj(formatFileName(userId, date));
     return blogEntry;
   }
 
   @Override
-  public BlogEntry get(String dateString) {
-    BlogEntry blogEntry = readSerializedObj(dateString);
+  public BlogEntry get(String userId, String dateString) {
+    BlogEntry blogEntry = readSerializedObj(userId + "/" + dateString);
     return blogEntry;
   }
 
-  private BlogEntry getByFormatedDate(String dateString) {
-    BlogEntry blogEntry = readSerializedObj(dateString);
+  private BlogEntry getByFormatedDate(String dateTimeString) {
+    BlogEntry blogEntry = readSerializedObj(formatFileName(dateTimeString));
     return blogEntry;
   }
 
-  public BlogEntry readSerializedObj(String dateTimeString) {
+  public BlogEntry readSerializedObj(String pathFileName) {
     BlogEntry blogEntry = null;
 
-    try (
-            InputStream file = new FileInputStream(formatFileName(dateTimeString));
-            InputStream buffer = new BufferedInputStream(file);
-            ObjectInput input = new ObjectInputStream(buffer);) {
+    try {
+      InputStream file = new FileInputStream(pathFileName);
+      InputStream buffer = new BufferedInputStream(file);
+      ObjectInput input = new ObjectInputStream(buffer);
       blogEntry = (BlogEntry) input.readObject();
     } catch (ClassNotFoundException ex) {
       log.error("Cannot perform input. Class not found.", ex);

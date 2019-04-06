@@ -24,7 +24,7 @@ public class RootController {
 
   public String generateBlogList() {
     StringBuilder stringBuilder = new StringBuilder("<ul>\n");
-    List<BlogEntry> blogEntriesList = blogEntryFileSystem.get(new Date(0), new Date());
+    List<BlogEntry> blogEntriesList = blogEntryFileSystem.get("userid", new Date(0), new Date(), true);
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     for (BlogEntry blogEntryNew : blogEntriesList) {
