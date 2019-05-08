@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface BlogEntryPersistance {
   public void save(BlogEntry blogEntry) throws IOException;
-  public List<BlogEntry> get(Date startDate, Date endDate, boolean decending);
-  public BlogEntry get(Date date);
-  public BlogEntry get(String dateString);
+  public List<BlogEntry> get(String userId, Date startDate, Date endDate, boolean decending);
+  public BlogEntry get(String userId, Date date);
+  public BlogEntry get(String userdId, String dateString);
   public boolean delete(BlogEntry blogEntry);
   public BlogEntry update (BlogEntry blogEntry);
 }

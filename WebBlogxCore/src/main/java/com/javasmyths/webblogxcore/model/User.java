@@ -12,6 +12,15 @@ public class User extends GsonModel {
   private String userId;
   private String password;
 
+  public User(String userId) {
+    this.userId = userId;
+  }
+
+  public User(String userId, String password) {
+    this.userId = userId;
+    this.password = password;
+  }
+
   public String getPassword() {
     return password;
   }
@@ -26,6 +35,11 @@ public class User extends GsonModel {
 
   public void setUserId(String UserId) {
     this.userId = UserId;
+  }
+
+  @Override
+  public String toString() {
+    return "User{" + "userId=" + userId + ", password=" + password + '}';
   }
 
 }

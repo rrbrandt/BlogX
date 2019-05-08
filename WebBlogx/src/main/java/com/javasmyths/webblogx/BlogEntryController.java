@@ -2,23 +2,28 @@ package com.javasmyths.webblogx;
 
 import com.javasmyths.webblogxcore.model.BlogEntry;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
+import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@ResponseBody
 public class BlogEntryController extends RootController {
 
   private static final Logger log = LogManager.getLogger();
@@ -34,6 +39,19 @@ public class BlogEntryController extends RootController {
     binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
   }
 
+  @RequestMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
+  public String handler (HttpSession httpSession)
+  {
+    String sessionKey = "firstAccessTime";
+    Object time = httpSession.getAttribute(sessionKey);
+    
+    if (time == null) {
+      time= LocalDateTime.now();
+    }
+  
+    return "First access time : "+ time + "\nsession id:" + httpSession.getId();
+  }
+  
   @RequestMapping(value = "/blogEntry", method = RequestMethod.GET)
   public ModelAndView blogEntry() {
     log.debug("****************************************");
@@ -52,8 +70,7 @@ public class BlogEntryController extends RootController {
     log.debug("blogEntry() Request get blogEntryDate");
     log.debug("****************************************");
     log.debug("blogEntryDate = " + blogEntryDate);
-    BlogEntry blogEntry;
-    blogEntry = blogEntryFileSystem.get(blogEntryDate);
+    BlogEntry blogEntry = blogEntryFileSystem.get("userId", blogEntryDate);
     ModelAndView modelAndView = new ModelAndView("blogEntry", "command", blogEntry);
     modelAndView.addObject("listOfBlogEntries", generateBlogList());
 

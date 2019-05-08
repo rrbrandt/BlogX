@@ -21,9 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class SignInControler extends RootController {
-
+  
     private static final Logger log = LogManager.getLogger();
-
 
   @InitBinder
   protected void initBinder(WebDataBinder binder) {
@@ -42,6 +41,7 @@ public class SignInControler extends RootController {
     log.debug("****************************************");
     model.addAttribute("command", new BlogEntry(new Date()));
     model.addAttribute("listOfBlogEntries", generateBlogList());
+    
     return "blogEntry";
   }
 

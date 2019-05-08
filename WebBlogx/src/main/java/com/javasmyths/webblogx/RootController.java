@@ -9,8 +9,11 @@ import static j2html.TagCreator.li;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
  *
@@ -24,7 +27,7 @@ public class RootController {
 
   public String generateBlogList() {
     StringBuilder stringBuilder = new StringBuilder("<ul>\n");
-    List<BlogEntry> blogEntriesList = blogEntryFileSystem.get(new Date(0), new Date(), false);
+    List<BlogEntry> blogEntriesList = blogEntryFileSystem.get("userId", new Date(0), new Date(), false);
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     for (BlogEntry blogEntryNew : blogEntriesList) {

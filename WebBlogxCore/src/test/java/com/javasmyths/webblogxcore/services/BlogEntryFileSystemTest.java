@@ -2,6 +2,7 @@ package com.javasmyths.webblogxcore.services;
 
 import com.javasmyths.webblogxcore.model.ApplicationProperties;
 import com.javasmyths.webblogxcore.model.BlogEntry;
+import com.javasmyths.webblogxcore.model.User;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
@@ -40,18 +41,19 @@ public class BlogEntryFileSystemTest {
       blogEntry.setBlogEntryDateTime(new Date());
       blogEntry.setBlogSubject("blogsubject");
       blogEntry.setBlogEntry("blogEntry");
+      blogEntry.setUser(new User ("UserId","Password"));
 
       BlogEntryFileSystem blogEntryFileSystem = new BlogEntryFileSystem();
       blogEntryFileSystem.setApplicationProperties(applicationProperties);
       blogEntryFileSystem.save(blogEntry);
 
-      BlogEntry blogEntryReadback = blogEntryFileSystem.get(blogEntry.getBlogEntryDateTime());
+      BlogEntry blogEntryReadback = blogEntryFileSystem.get(blogEntry.getUser().getUserId(), blogEntry.getBlogEntryDateTime());
       assertEquals("Record read back should be equal", blogEntry.toString(), blogEntryReadback.toString());
       assertEquals("Record read back should be equal", blogEntry.toGsonString(), blogEntryReadback.toGsonString());
       blogEntry.setBlogEntry("blogEntryUpdated");
       blogEntry.setBlogSubject("blogSubject");
       blogEntryFileSystem.update(blogEntry);
-      blogEntryReadback = blogEntryFileSystem.get(blogEntry.getBlogEntryDateTime());
+      blogEntryReadback = blogEntryFileSystem.get(blogEntry.getUser().getUserId(), blogEntry.getBlogEntryDateTime());
       assertEquals("Record read back should be equal", blogEntry.toGsonString(), blogEntryReadback.toGsonString());
       blogEntryFileSystem.delete(blogEntry);
       assertTrue("An exception was not thrown", true);
@@ -71,7 +73,7 @@ public class BlogEntryFileSystemTest {
     Date endDate = new Date();
     BlogEntryFileSystem blogEntryFileSystem = new BlogEntryFileSystem();
     blogEntryFileSystem.setApplicationProperties(applicationProperties);
-    List<BlogEntry> result = blogEntryFileSystem.get(startDate, endDate, false);
+    List<BlogEntry> result = blogEntryFileSystem.get("UserId", startDate, endDate, false);
     assertTrue("Greater then zero", result.size() >= 0);
   }
 
