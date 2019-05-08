@@ -3,14 +3,25 @@
  */
 package com.javasmyths.webblogxcore.model;
 
+import java.io.Serializable;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author Richard
  */
-public class User extends GsonModel {
+@Component
+@Scope("session")
+public class User extends GsonModel implements Serializable {
 
   private String userId;
   private String password;
+
+  public User() {
+    userId = null;
+    password = null;
+  }
 
   public User(String userId) {
     this.userId = userId;

@@ -49,7 +49,7 @@
   <body>
 
     <article>
-      <header><h1>WebBlogx</h1> ver. 1.0</header>
+      <header><h1>WebBlogx</h1> ver. 1.1</header>
       
       <nav>
         <h2>Blog History</h2>

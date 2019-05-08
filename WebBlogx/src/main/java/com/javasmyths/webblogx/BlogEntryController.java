@@ -1,13 +1,16 @@
 package com.javasmyths.webblogx;
 
 import com.javasmyths.webblogxcore.model.BlogEntry;
+import com.javasmyths.webblogxcore.model.User;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +26,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@Scope("session")
 @ResponseBody
 public class BlogEntryController extends RootController {
 
-  private static final Logger log = LogManager.getLogger();
+  @Autowired
+  private User user;
+  private static Logger log = LogManager.getLogger();
 
   @InitBinder
   protected void initBinder(WebDataBinder binder) {
@@ -56,6 +62,7 @@ public class BlogEntryController extends RootController {
   public ModelAndView blogEntry() {
     log.debug("****************************************");
     log.debug("blogEntry() Request get");
+    log.debug("crudBlogEntry() user = " + user);
     log.debug("****************************************");
 
     ModelAndView modelAndView = new ModelAndView("blogEntry", "command", new BlogEntry(new Date()));
@@ -68,6 +75,7 @@ public class BlogEntryController extends RootController {
   public ModelAndView blogEntry(@PathVariable String blogEntryDate, Model model) {
     log.debug("****************************************");
     log.debug("blogEntry() Request get blogEntryDate");
+    log.debug("crudBlogEntry() user = " + user);
     log.debug("****************************************");
     log.debug("blogEntryDate = " + blogEntryDate);
     BlogEntry blogEntry = blogEntryFileSystem.get("userId", blogEntryDate);
@@ -85,12 +93,14 @@ public class BlogEntryController extends RootController {
     log.debug("crudBlogEntry() blogEntry = " + blogEntry);
     log.debug("crudBlogEntry() save = " + save);
     log.debug("crudBlogEntry() delete = " + delete);
+    log.debug("crudBlogEntry() user = " + user);
     log.debug("****************************************");
     try {
       if ("save".equalsIgnoreCase(save)) {
         model.addAttribute("blogDateType", blogEntry.getBlogEntryDateTime());
         model.addAttribute("blogSubject", blogEntry.getBlogSubject());
         model.addAttribute("blogEntry", blogEntry.getBlogEntry());
+        blogEntry.setUserId(user.getUserId());
         blogEntryFileSystem.save(blogEntry);
         return "result";
       }

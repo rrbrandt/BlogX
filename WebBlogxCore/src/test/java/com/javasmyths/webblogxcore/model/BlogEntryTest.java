@@ -90,9 +90,11 @@ public class BlogEntryTest {
     instance.setBlogEntry("blogEntry");
     instance.setBlogEntryDateTime(new Date(0));
     instance.setBlogSubject("blogSubject");
-    instance.setUser(new User("rrbrandt"));
+    instance.setUserId("rrbrandt");
     result = instance.toGsonString();
-    assertEquals("{\"blogEntryDateTime\":\"Dec 31, 1969 7:00:00 PM\",\"blogSubject\":\"blogSubject\",\"blogEntry\":\"blogEntry\",\"user\":{\"userId\":\"rrbrandt\"}}", result);
+    System.out.println("result = " + result);
+    
+    assertEquals("{\"blogEntryDateTime\":\"Dec 31, 1969 7:00:00 PM\",\"blogSubject\":\"blogSubject\",\"blogEntry\":\"blogEntry\",\"userId\":\"rrbrandt\"}", result);
   }
   
 }
