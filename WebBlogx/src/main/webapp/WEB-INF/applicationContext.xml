@@ -21,6 +21,10 @@
     <property name="blogEntryRoot" value="/chroot/home/javasmyt/BlogEntries/"/>
   </bean>
   
+  <bean id="user" class="com.javasmyths.webblogxcore.model.User" scope="session">
+      <aop:scoped-proxy/>
+  </bean>
+  
   <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
 
 </beans>
