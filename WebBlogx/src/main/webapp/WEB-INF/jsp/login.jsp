@@ -2,6 +2,11 @@
 <html>
   <head>
     <title>Log in page</title>
+<!--    <script>
+      function myFunction() {
+        alert("I am an alert box!");
+      }
+    </script>-->
   </head>
 
   <body>
@@ -10,7 +15,7 @@
       User ID: <input type="text" name="userId"><br>
       Password: <input type="password" name="password"><br>
       <br>
-      <input type="submit" value="Submit">
+      <input onclick="myFunction()" type="submit" value="Submit">
       <br>
     </form>
   </body>

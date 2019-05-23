@@ -15,5 +15,5 @@ public interface BlogEntryPersistance {
   public BlogEntry get(String userId, Date date);
   public BlogEntry get(String userdId, String dateString);
   public boolean delete(BlogEntry blogEntry);
-  public BlogEntry update (BlogEntry blogEntry);
+  public BlogEntry update (BlogEntry blogEntry) throws IOException;
 }

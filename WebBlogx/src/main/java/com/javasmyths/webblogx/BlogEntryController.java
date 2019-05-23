@@ -78,7 +78,7 @@ public class BlogEntryController extends RootController {
     log.debug("crudBlogEntry() user = " + user);
     log.debug("****************************************");
     log.debug("blogEntryDate = " + blogEntryDate);
-    BlogEntry blogEntry = blogEntryFileSystem.get("userId", blogEntryDate);
+    BlogEntry blogEntry = blogEntryFileSystem.get(user.getUserId(), blogEntryDate);
     ModelAndView modelAndView = new ModelAndView("blogEntry", "command", blogEntry);
     modelAndView.addObject("listOfBlogEntries", generateBlogList());
 
