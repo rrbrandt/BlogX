@@ -53,7 +53,7 @@
 
 
     <article>
-      <h2>Blog Entry</h2>
+      <h2>Blog Entry ver. 1.2</h2>
       <a href="${pageContext.servletContext.contextPath}">logout</a>
       <form:form  method="post" action="/WebBlogx/crudBlogEntry">
 
