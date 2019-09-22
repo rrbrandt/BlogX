@@ -2,7 +2,6 @@ package com.javasmyths.webblogxcore.services;
 
 import com.javasmyths.webblogxcore.model.ApplicationProperties;
 import com.javasmyths.webblogxcore.model.BlogEntry;
-import com.javasmyths.webblogxcore.model.User;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
