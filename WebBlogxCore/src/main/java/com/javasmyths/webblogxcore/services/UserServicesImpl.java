@@ -31,7 +31,7 @@ public class UserServicesImpl implements UserServices {
 
   @Override
   public String encryptPassword(String clearTextPassword) {
-    String encryptedPasswordHash = BCrypt.hashpw(clearTextPassword, BCrypt.gensalt());
+    String encryptedPasswordHash = BCrypt.hashpw(clearTextPassword, BCrypt.gensalt(8));
     return encryptedPasswordHash;
   }
 }

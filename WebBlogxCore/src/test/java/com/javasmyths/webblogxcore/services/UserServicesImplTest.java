@@ -30,11 +30,11 @@ public class UserServicesImplTest {
   @Test
   public void testEncryptPassword() {
     System.out.println("encryptPassword");
-    String clearTextPassword = "MrSpocl";
-    UserServicesImpl instance = new UserServicesImpl();
-    String result = instance.encryptPassword(clearTextPassword);
-    System.out.println("Result = " + result);
-    assertTrue(result, BCrypt.checkpw(clearTextPassword, result));
+    UserServicesImpl userServicesImpl = new UserServicesImpl();
+    String result = userServicesImpl.encryptPassword("MrSpock");
+    assertTrue("Should be true", BCrypt.checkpw("MrSpock", result));
+    result = userServicesImpl.encryptPassword("MrSpock");
+    assertTrue("Should be true", BCrypt.checkpw("MrSpock", result));
   }
   
 }
