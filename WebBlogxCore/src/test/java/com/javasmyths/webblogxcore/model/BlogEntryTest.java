@@ -84,7 +84,8 @@ public class BlogEntryTest {
     instance.setBlogEntryDateTime(new Date(0));
     instance.setBlogSubject("blogSubject");
     String result = instance.toGsonString();
-    assertEquals("{\"blogEntryDateTime\":\"Dec 31, 1969 7:00:00 PM\",\"blogSubject\":\"blogSubject\",\"blogEntry\":\"blogEntry\"}", result);
+    System.out.println("testToGsonString = " + result);
+    assertEquals("{\"blogEntryDateTime\":\"Dec 31, 1969, 7:00:00 PM\",\"blogSubject\":\"blogSubject\",\"blogEntry\":\"blogEntry\"}", result);
     
     instance = new BlogEntry();
     instance.setBlogEntry("blogEntry");
@@ -94,7 +95,7 @@ public class BlogEntryTest {
     result = instance.toGsonString();
     System.out.println("result = " + result);
     
-    assertEquals("{\"blogEntryDateTime\":\"Dec 31, 1969 7:00:00 PM\",\"blogSubject\":\"blogSubject\",\"blogEntry\":\"blogEntry\",\"userId\":\"rrbrandt\"}", result);
+    assertEquals("{\"blogEntryDateTime\":\"Dec 31, 1969, 7:00:00 PM\",\"blogSubject\":\"blogSubject\",\"blogEntry\":\"blogEntry\",\"userId\":\"rrbrandt\"}", result);
     
     instance = new BlogEntry(new Date(0));
     instance.setBlogEntry("blogEntry");
@@ -103,14 +104,14 @@ public class BlogEntryTest {
     result = instance.toGsonString();
     System.out.println("result = " + result);
     
-    assertEquals("{\"blogEntryDateTime\":\"Dec 31, 1969 7:00:00 PM\",\"blogSubject\":\"blogSubject\",\"blogEntry\":\"blogEntry\",\"userId\":\"rrbrandt\"}", result);
+    assertEquals("{\"blogEntryDateTime\":\"Dec 31, 1969, 7:00:00 PM\",\"blogSubject\":\"blogSubject\",\"blogEntry\":\"blogEntry\",\"userId\":\"rrbrandt\"}", result);
     
     instance = new BlogEntry(new Date(0), "blogSubject", "blogEntry");
     instance.setUserId("rrbrandt");
     result = instance.toGsonString();
     System.out.println("result = " + result);
     
-    assertEquals("{\"blogEntryDateTime\":\"Dec 31, 1969 7:00:00 PM\",\"blogSubject\":\"blogSubject\",\"blogEntry\":\"blogEntry\",\"userId\":\"rrbrandt\"}", result);
+    assertEquals("{\"blogEntryDateTime\":\"Dec 31, 1969, 7:00:00 PM\",\"blogSubject\":\"blogSubject\",\"blogEntry\":\"blogEntry\",\"userId\":\"rrbrandt\"}", result);
   }
   
 }
